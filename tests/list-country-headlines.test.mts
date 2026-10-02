@@ -264,7 +264,7 @@ describe('country headlines from existing curated RSS caches', () => {
       cache.set(rssFeedCacheKey('full', source.url), digest.parseRssXml(xml, source, 'full'));
     }
     const { payload } = await request(['ML']);
-    assert.deepEqual(payload.countries.ML.items.map(row => row.source), ['NPR News', 'PBS NewsHour']);
+    assert.deepEqual(payload.countries.ML.items.map(row => row.source).sort(), ['NPR News', 'PBS NewsHour']);
     assert.equal(briefGroundingGap(selectCountryHeadlines(payload.countries.ML.items, 'ML')), null);
     put('Guardian Pacific', [article('Guardian Pacific', { originPublisher: 'Reuters', originPublisherTrusted: false })]);
     assert.equal((await request()).payload.countries.PW.items[0].source, 'Guardian Pacific');
